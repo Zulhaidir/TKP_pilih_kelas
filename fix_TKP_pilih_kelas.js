@@ -9,7 +9,6 @@ function onFormSubmit(even) {
   var kelas = itemResponse[1].getResponse()
 
   record_array.push(name);
-  record_array.push(kelas);
 
   var answer = lastResponse.getItemResponses().slice(2).map(function(a) { 
     return a.getResponse();
@@ -35,26 +34,25 @@ function onFormSubmit(even) {
   record_array.push(sum);
 
   switch(kelas) {
-    case "A":
-      spreadsheetUrl = 'url_kelas_A';
+    case "Kelas A":
+      spreadsheetId = 'id_spreadsheet_A';
       break;
-    case "B":
-      spreadsheetUrl = 'url_kelas_B';
+    case "Kelas B":
+      spreadsheetId = 'id_spreadsheet_B';
       break;
   }
   
   // Menampilkan data berupa nama dan total nilai ke spreadsheet
-  var spreadsheet = SpreadsheetApp.openByUrl(spreadsheetUrl);
-  var sheet = spreadsheet.getSheetByName('test');
+  var spreadsheet = SpreadsheetApp.openById(spreadsheetId);
+  var sheet = spreadsheet.getSheetByName('nama_sheet');
   var row = sheet.getLastRow() + 1;
   sheet.getRange(row, 1).setValue(record_array[0]);
   sheet.getRange(row, 2).setValue(record_array[1]);
-  sheet.getRange(row, 3).setValue(record_array[2]);
 }
 
 // import Nilai Score Pada Opsi di Spreadsheet
 function convertTo2DArray() {
-  var spreadsheet = SpreadsheetApp.openByUrl('url_score_opsi');
+  var spreadsheet = SpreadsheetApp.openById('id_spreadsheet');
   var sheet = spreadsheet.getSheetByName('nama_sheet'); 
 
   var lastRow = sheet.getLastRow();
